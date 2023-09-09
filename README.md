@@ -1,3 +1,65 @@
+# Task2 of ISEC6000 Secure DevOps Assignment 1
+
+## About
+This is Task2 of ISEC6000 Secure DevOps Assignment 1 ---  Microservices Architecture and Deployment
+
+## Requirements
+1. [Docker](https://docs.docker.com/install/)
+
+## How to clone the repository?
+
+To clone the repository, run the following command
+
+```
+git clone https://github.com/wlyhly/saleor-platform.git
+```
+
+## How to run it?
+
+1. We are using shared folders to enable live code reloading. Without this, Docker Compose will not start:
+    - Windows/MacOS: Add the cloned `saleor-platform` directory to Docker shared directories (Preferences -> Resources -> File sharing).
+    - Windows/MacOS: Make sure that in Docker preferences you have dedicated at least 5 GB of memory (Preferences -> Resources -> Advanced).
+    - Linux: No action is required, sharing is already enabled and memory for the Docker engine is not limited.
+
+2. Go to the cloned directory:
+```shell
+cd saleor-platform
+```
+
+3. Build the application:
+```shell
+docker compose build
+```
+
+4. Apply Django migrations:
+```shell
+docker compose run --rm api python3 manage.py migrate
+```
+
+5. Populate the database with example data and create the admin user:
+```shell
+docker compose run --rm api python3 manage.py populatedb --createsuperuser
+```
+*Note that `--createsuperuser` argument creates an admin account for `admin@example.com` with the password set to `admin`.*
+
+6. Run the application:
+```shell
+docker compose up
+```
+
+## Where is the application running?
+- Saleor Core (API) - http://localhost:8000
+- Saleor Dashboard - http://localhost:9003
+- Jaeger UI (APM) - http://localhost:16686
+- Mailpit (Test email interface) - http://localhost:8025
+
+The ports of every services can see the docker-compose.yml file.
+
+##  Note
+See more details in the guidelines outlined of the Saleor platform repository as below.
+
+# The guidelines outlined of the Saleor platform repository
+
 ![Saleor Platform](https://user-images.githubusercontent.com/249912/71523206-4e45f800-28c8-11ea-84ba-345a9bfc998a.png)
 
 <div align="center">
@@ -87,9 +149,28 @@ docker compose up
 
 # Troubleshooting
 
-- [How to solve issues with lack of available space or build errors after an update](#how-to-solve-issues-with-lack-of-available-space-or-build-errors-after-an-update)
-- [How to run application parts?](#how-to-run-application-parts)
-- [How to update the subprojects to the newest versions?](#how-to-update-the-subprojects-to-the-newest-versions)
+- [Task2 of ISEC6000 Secure DevOps Assignment 1](#task2-of-isec6000-secure-devops-assignment-1)
+  - [About](#about)
+  - [Requirements](#requirements)
+  - [How to clone the repository?](#how-to-clone-the-repository)
+  - [How to run it?](#how-to-run-it)
+  - [Where is the application running?](#where-is-the-application-running)
+  - [Note](#note)
+- [The guidelines outlined of the Saleor platform repository](#the-guidelines-outlined-of-the-saleor-platform-repository)
+  - [About](#about-1)
+    - [What is Saleor Platform?](#what-is-saleor-platform)
+  - [Requirements](#requirements-1)
+  - [How to clone the repository?](#how-to-clone-the-repository-1)
+  - [How to run it?](#how-to-run-it-1)
+  - [Where is the application running?](#where-is-the-application-running-1)
+- [Troubleshooting](#troubleshooting)
+  - [How to solve issues with lack of available space or build errors after an update](#how-to-solve-issues-with-lack-of-available-space-or-build-errors-after-an-update)
+    - [Still no available space](#still-no-available-space)
+    - [Issues with migrations after changing the versions - resetting the database](#issues-with-migrations-after-changing-the-versions---resetting-the-database)
+  - [How to run application parts?](#how-to-run-application-parts)
+  - [Feedback](#feedback)
+  - [License](#license)
+      - [Crafted with ❤️ by Saleor Commerce](#crafted-with-️-by-saleor-commerce)
 
 ## How to solve issues with lack of available space or build errors after an update
 
